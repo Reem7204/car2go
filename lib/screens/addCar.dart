@@ -18,7 +18,7 @@ class _AddcarState extends State<Addcar> {
           'Choose Category',
           style: TextStyle(
             color: const Color(0xFFF7F5F2),
-            fontSize: 24,
+            fontSize: 24.sp,
             fontFamily: 'SF Pro Display',
             fontWeight: FontWeight.w600,
           ),

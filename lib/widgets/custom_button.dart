@@ -52,7 +52,7 @@ class _CustomTextfieldState extends State<CustomTextfield> {
                             contentPadding: EdgeInsets.symmetric(
                                 vertical: 10.0, horizontal: 20.0),
                             labelText: widget.label,
-                            labelStyle: TextStyle(color: const Color(0xFFA7B0BB),fontSize: 16,
+                            labelStyle: TextStyle(color: const Color(0xFFA7B0BB),fontSize: 16.sp,
                         fontFamily: 'SF Pro Display',
                         fontWeight: FontWeight.w400,),
                             border: InputBorder.none),

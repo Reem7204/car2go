@@ -52,7 +52,7 @@ class _LoginState extends State<Login> {
                     'Forgot Password?',
                     style: TextStyle(
                       color: const Color(0xFFDDE0E3),
-                      fontSize: 16,
+                      fontSize: 16.sp,
                       fontFamily: 'SF Pro Display',
                       fontWeight: FontWeight.w400,
                     ),
@@ -73,7 +73,7 @@ class _LoginState extends State<Login> {
                     'Don’t have an account ',
                     style: TextStyle(
                       color: const Color(0xFFDDE0E3),
-                      fontSize: 16,
+                      fontSize: 16.sp,
                       fontFamily: 'SF Pro Display',
                       fontWeight: FontWeight.w400,
                     ),
@@ -86,7 +86,7 @@ class _LoginState extends State<Login> {
                       'Sign Up',
                       style: TextStyle(
                         color: const Color(0xFF0078FF),
-                        fontSize: 16,
+                        fontSize: 16.sp,
                         fontFamily: 'SF Pro Display',
                         fontWeight: FontWeight.w700,
                       ),

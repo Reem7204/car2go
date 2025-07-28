@@ -51,8 +51,8 @@ class _AccountState extends State<Account> {
                     bottom: -5,
                     right: -5,
                     child: Container(
-                      width: 27,
-                      height: 27,
+                      width: 27.w,
+                      height: 27.h,
                       decoration: ShapeDecoration(
                         color: const Color(0xFFFFCE50),
                         shape: OvalBorder(),
@@ -126,7 +126,7 @@ class _AccountState extends State<Account> {
                             width: 134.w,
                             height: 100.h,
                             // color: Colors.white,
-                            child: Image.asset('assets/budgetcar.jpg',height: 100,width: 134.w,fit: BoxFit.fill,),
+                            child: Image.asset('assets/budgetcar.jpg',height: 100.h,width: 134.w,fit: BoxFit.fill,),
                             // decoration: ShapeDecoration(
                             //   image: DecorationImage(
                             //     image: NetworkImage("https://placehold.co/134x121"),

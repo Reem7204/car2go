@@ -47,8 +47,8 @@ class _AccountdetailsState extends State<Accountdetails> {
                         bottom: -5,
                         right: -5,
                         child: Container(
-                          width: 35,
-                          height: 35,
+                          width: 35.w,
+                          height: 35.h,
                           decoration: ShapeDecoration(
                             color: const Color(0xFFFFCE50),
                             shape: OvalBorder(),
@@ -93,7 +93,7 @@ class _AccountdetailsState extends State<Accountdetails> {
                 decoration: ShapeDecoration(
             shape: RoundedRectangleBorder(
               side: BorderSide(
-                width: 0.80,
+                width: 0.80.w,
                 strokeAlign: BorderSide.strokeAlignCenter,
                 color: const Color(0xFFD9D9D9),
               ),
@@ -109,7 +109,7 @@ class _AccountdetailsState extends State<Accountdetails> {
                   decoration: ShapeDecoration(
                             shape: RoundedRectangleBorder(
                 side: BorderSide(
-                  width: 0.80,
+                  width: 0.80.w,
                   strokeAlign: BorderSide.strokeAlignCenter,
                   color: const Color(0xFFD9D9D9),
                 ),

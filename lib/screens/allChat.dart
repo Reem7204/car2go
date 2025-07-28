@@ -39,10 +39,10 @@ class _AllchatState extends State<Allchat> {
             ),
             child: Column(
               children: [
-                SizedBox(height: 12),
+                SizedBox(height: 12.h),
                 Container(
-                  width: 40,
-                  height: 4,
+                  width: 40.w,
+                  height: 4.h,
                   decoration: BoxDecoration(
                     color: Colors.grey[300],
                     borderRadius: BorderRadius.circular(2),
@@ -71,7 +71,7 @@ class _AllchatState extends State<Allchat> {
                             messages[index]['text'],
                             style: TextStyle(
                               color: isMe ? Colors.white : Colors.black,
-                              fontSize: 16,
+                              fontSize: 16.sp,
                             ),
                           ),
                         ),
@@ -125,7 +125,7 @@ class _AllchatState extends State<Allchat> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 8.sp,),
+                        SizedBox(height: 8.h,),
                         Text(
                           names[index],
                           style: TextStyle(

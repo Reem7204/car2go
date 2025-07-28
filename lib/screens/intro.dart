@@ -58,7 +58,7 @@ class _IntroState extends State<Intro> {
                             'Let’s Go',
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 20,
+                              fontSize: 20.sp,
                               fontFamily: 'SF Pro Display',
                               fontWeight: FontWeight.w700,
                               letterSpacing: 1.70,

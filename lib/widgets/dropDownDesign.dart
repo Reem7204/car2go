@@ -60,7 +60,7 @@ class _DropdowndesignState extends State<Dropdowndesign> {
           height: 23.h,
           fit: BoxFit.contain,
         ),
-        SizedBox(width: 27),
+        SizedBox(width: 27.w),
         Text(selectedItem['label'], style: TextStyle(fontSize: 18.sp)),
         Spacer(),
         Icon(Icons.keyboard_arrow_down_rounded),
