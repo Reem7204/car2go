@@ -4,8 +4,11 @@ import 'package:car2go/screens/buyCar.dart';
 import 'package:car2go/screens/home.dart';
 import 'package:car2go/screens/message.dart';
 import 'package:car2go/screens/search.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:material_symbols_icons/material_symbols_icons.dart';
+
 
 class Bottomnav extends StatefulWidget {
   const Bottomnav({super.key});
@@ -17,6 +20,13 @@ class Bottomnav extends StatefulWidget {
 class _BottomnavState extends State<Bottomnav> {
   int _selectedScreen = 0;
   final screens = [Home(), Search(), Addcar(), Message(), Account()];
+  final List<Map<String, dynamic>> _items = [
+    {'icon': CupertinoIcons.home, 'label': 'Home', 'color' : Color(0xFF1F354D)},
+    {'icon': CupertinoIcons.search, 'label': 'Search', 'color' : Color(0xFF1F354D)},
+    {'icon': CupertinoIcons.add, 'label': 'Add Car', 'color' : Colors.amber},
+    {'icon': CupertinoIcons.chat_bubble, 'label': 'Message', 'color' : Color(0xFF1F354D)},
+    {'icon': CupertinoIcons.person, 'label': 'Account', 'color' : Color(0xFF1F354D)},
+  ];
   void onTapped(int index) {
     setState(() {
       _selectedScreen = index;
@@ -31,7 +41,7 @@ class _BottomnavState extends State<Bottomnav> {
         width: 388.w,
         height: 74.h,
         decoration: ShapeDecoration(
-          color: Colors.white.withValues(alpha: 0.51),
+          color: Colors.white.withValues(alpha: 0.71),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16.r),
           ),
@@ -45,42 +55,65 @@ class _BottomnavState extends State<Bottomnav> {
       bottomLeft: Radius.circular(16.r),
       bottomRight: Radius.circular(16.r)
     ),
-          child: BottomNavigationBar(
-            currentIndex: _selectedScreen,
-            selectedItemColor: Colors.black,
-            unselectedItemColor: Colors.blueGrey,
-            onTap: onTapped,
-            showUnselectedLabels: true,
-            selectedLabelStyle:  TextStyle(
-                    color: const Color(0xFF1F354D),
-                    fontSize: 10.sp,
-                    fontFamily: 'SF Pro Display',
-                    fontWeight: FontWeight.w300,
+          child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: List.generate(_items.length, (index) {
+            final item = _items[index];
+            final isSelected = index == _selectedScreen;
+          
+            return GestureDetector(
+              onTap: () {
+                setState(() {
+                  _selectedScreen = index;
+                });
+              },
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  AnimatedContainer(
+                    duration: Duration(milliseconds: 200),
+                    padding: EdgeInsets.symmetric(horizontal: isSelected ? 12 : 0),
+                    decoration: isSelected
+                        ? BoxDecoration(
+                            color: Colors.grey.shade400,
+                            borderRadius: BorderRadius.circular(16.r),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black26,
+                                blurRadius: 4,
+                                offset: Offset(0, 2),
+                              ),
+                            ],
+                          )
+                        : null,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        children: [
+                          Icon(
+                            item['icon'],
+                            color: item['color'],
+                            size:  28.sp,
+                          ),
+                          SizedBox(height: 6),
+                                        Text(
+                      item['label'],
+                      style: TextStyle(
+                        fontSize: 10.sp,
+                        color: const Color(0xFF1F354D),
+                        fontWeight: FontWeight.normal,
+                      ),
+                                        ),
+                        ],
+                      ),
+                    ),
+                    
                   ),
-                  iconSize: 28.sp,
-            unselectedLabelStyle:  TextStyle(
-                    color: const Color(0xFF1F354D),
-                    fontSize: 10.sp,
-                    fontFamily: 'SF Pro Display',
-                    fontWeight: FontWeight.w300,
-                  ),     
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: 'Home',),
-              BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.add_circle_outline_rounded,color: Colors.amber,),
-                label: 'Add Car',
+                  
+                ],
               ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.message_outlined),
-                label: 'Message',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person_outline_sharp),
-                label: 'Account',
-              ),
-            ],
-          ),
+            );
+          }),)
         ),
       ),
     );
