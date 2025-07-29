@@ -16,7 +16,7 @@ class _IntroState extends State<Intro> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(height: 150.h), 
+            SizedBox(height: 190.h), 
             Text(
               'Wheels You Needed',
               style: TextStyle(
@@ -26,6 +26,7 @@ class _IntroState extends State<Intro> {
                 fontWeight: FontWeight.w600,
               ),
             ),
+            SizedBox(height: 34.h), 
             Text(
               'Premium and prestige daily rental car, experience the thrill at a lower price.',
               textAlign: TextAlign.center,
@@ -37,7 +38,7 @@ class _IntroState extends State<Intro> {
                 letterSpacing: 1.36,
               ),
             ),
-            SizedBox(height: 200.h),
+            SizedBox(height: 446.h),
             GestureDetector(
               onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => Login())),
               child: Container(
