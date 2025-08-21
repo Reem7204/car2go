@@ -7,7 +7,7 @@ part 'car_event.dart';
 part 'car_state.dart';
 
 class CarBloc extends Bloc<CarEvent, CarState> {
-  late MapModel carModel;
+  late List<MapModel> carModel;
   CarRepository carRepository = CarRepository();
   CarBloc() : super(CarInitial()) {
     on<FetchCarEvent>((event, emit) async {

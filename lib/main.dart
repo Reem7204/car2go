@@ -1,4 +1,7 @@
 import 'package:car2go/bloc/bloc/car_bloc.dart';
+import 'package:car2go/bloc/bloc/login_bloc.dart';
+import 'package:car2go/bloc/bloc/rent_cars_bloc.dart';
+import 'package:car2go/bloc/bloc/signup_bloc.dart';
 import 'package:car2go/screens/accountDetails.dart';
 import 'package:car2go/screens/addCar.dart';
 import 'package:car2go/screens/bottomnav.dart';
@@ -11,10 +14,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() {
-  runApp(BlocProvider(
-    create: (context) => CarBloc(),
-    child: MyApp(),
-  ));
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => CarBloc()),
+        BlocProvider(create: (context) => RentCarsBloc()),
+        BlocProvider(create: (context) => LoginBloc()), 
+        BlocProvider(create: (context) => SignupBloc()), 
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -24,7 +34,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: Size(360,690),
+      designSize: Size(430,932),
       child: MaterialApp(
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,

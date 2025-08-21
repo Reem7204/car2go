@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Rentingdetails extends StatefulWidget {
-  const Rentingdetails({super.key, required this.Vehiclename, required this.Vehicleimg});
+  const Rentingdetails({super.key, required this.Vehiclename, required this.Vehicleimg, required this.VehicleColors, required this.vprice});
   final String Vehiclename;
   final String Vehicleimg;
+  final String VehicleColors;
+  final String vprice;
+
   @override
   State<Rentingdetails> createState() => _RentingdetailsState();
 }
@@ -68,7 +71,7 @@ class _RentingdetailsState extends State<Rentingdetails> {
               SizedBox(height: 10.h),
               Container(
                 width: 380.w,
-                height: 90.h,
+                height: 123.h,
                 decoration: ShapeDecoration(
                   gradient: LinearGradient(
                     begin: Alignment(0.35, -0.29),
@@ -77,71 +80,72 @@ class _RentingdetailsState extends State<Rentingdetails> {
                   ),
                   shape: RoundedRectangleBorder(
                     side: BorderSide(width: 1, color: const Color(0xFF58606A)),
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(10.r),
                   ),
                 ),
                 child: Row(
                   children: [
+                    SizedBox(width: 10.w,),
                     Container(
                       width: 127.w,
-                      height: 90.h,
+                      height: 102.h,
                       decoration: ShapeDecoration(
                         image: DecorationImage(
                           image: NetworkImage(widget.Vehicleimg),
+                          // image: NetworkImage(widget.Vehicleimg),
                           fit: BoxFit.fill,
                         ),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(4),
+                          borderRadius: BorderRadius.circular(4.r),
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            widget.Vehiclename,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: const Color(0xFFF7F5F2),
-                              fontSize: 20.sp,
-                              fontFamily: 'SF Pro Display',
-                              fontWeight: FontWeight.w500,
-                            ),
+                    SizedBox(width: 27.w,),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 16.h,),
+                        Text(
+                          widget.Vehiclename,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: const Color(0xFFF7F5F2),
+                            fontSize: 20.sp,
+                            fontFamily: 'SF Pro Display',
+                            fontWeight: FontWeight.w500,
                           ),
-                          Text(
-                            'White',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: const Color(0xFF627487),
-                              fontSize: 16.sp,
-                              fontFamily: 'SF Pro Display',
-                              fontWeight: FontWeight.w400,
-                            ),
+                        ),
+                        Text(
+                          widget.VehicleColors,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: const Color(0xFF627487),
+                            fontSize: 16.sp,
+                            fontFamily: 'SF Pro Display',
+                            fontWeight: FontWeight.w400,
                           ),
-                          Text(
-                            '8000\$/Day',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16.sp,
-                              fontFamily: 'SF Pro Display',
-                              fontWeight: FontWeight.w400,
-                            ),
+                        ),
+                        Text(
+                          '${widget.vprice}\$/Day',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16.sp,
+                            fontFamily: 'SF Pro Display',
+                            fontWeight: FontWeight.w400,
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
               ),
-              SizedBox(height: 10.h),
+              SizedBox(height: 42.h),
               Padding(
-                padding: const EdgeInsets.all(15.0),
+                padding: const EdgeInsets.symmetric(horizontal: 22.0),
                 child: Row(
                   children: [
-                    Icon(Icons.calendar_today_outlined, color: Colors.white),
+                    Icon(Icons.calendar_today_outlined, color: Colors.white,),
                     SizedBox(width: 10.w),
                     Text(
                       'Select Date',
@@ -155,8 +159,9 @@ class _RentingdetailsState extends State<Rentingdetails> {
                   ],
                 ),
               ),
+              SizedBox(height: 23.h,),
               Padding(
-                padding: const EdgeInsets.all(15.0),
+                padding: const EdgeInsets.symmetric(horizontal: 22.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -165,12 +170,12 @@ class _RentingdetailsState extends State<Rentingdetails> {
                         _pickDate(context);
                       },
                       child: Container(
-                        width: 130.w,
+                        width: 148.w,
                         height: 80.h,
                         child: Column(
                           children: [
                             Container(
-                              width: 130.w,
+                              width: 148.w,
                               height: 55.h,
                               decoration: ShapeDecoration(
                                 shape: RoundedRectangleBorder(
@@ -178,7 +183,7 @@ class _RentingdetailsState extends State<Rentingdetails> {
                                     width: 1,
                                     color: const Color(0xFF627487),
                                   ),
-                                  borderRadius: BorderRadius.circular(4),
+                                  borderRadius: BorderRadius.circular(4.r),
                                 ),
                               ),
                               child: Center(
@@ -198,34 +203,40 @@ class _RentingdetailsState extends State<Rentingdetails> {
                             SizedBox(
                               height: 5.h,
                             ),
-                            Text(
-                              'Pickup Date',
-                              style: TextStyle(
-                                color: const Color(0xFF627487),
-                                fontSize: 14.sp,
-                                fontFamily: 'SF Pro Display',
-                                fontWeight: FontWeight.w400,
-                              ),
+                            Row(
+                              children: [
+                                Text(
+                                  'Pickup Date',
+                                  style: TextStyle(
+                                    color: const Color(0xFF627487),
+                                    fontSize: 14.sp,
+                                    fontFamily: 'SF Pro Display',
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),
                       ),
                     ),
+                    SizedBox(width: 12.w,),
                     Icon(
                       Icons.arrow_right_alt_sharp,
                       color: const Color(0xFF627487),
                     ),
+                    SizedBox(width: 12.w,),
                     GestureDetector(
                       onTap: () {
                         _pickReturnDate(context);
                       },
                       child: Container(
                         height: 80.h,
-                        width: 130.w,
+                        width: 148.w,
                         child: Column(
                           children: [
                             Container(
-                              width: 130.w,
+                              width: 148.w,
                               height: 55.h,
                               decoration: ShapeDecoration(
                                 shape: RoundedRectangleBorder(
@@ -233,7 +244,7 @@ class _RentingdetailsState extends State<Rentingdetails> {
                                     width: 1,
                                     color: const Color(0xFF627487),
                                   ),
-                                  borderRadius: BorderRadius.circular(4),
+                                  borderRadius: BorderRadius.circular(4.r),
                                 ),
                               ),
                               child: Center(
@@ -253,14 +264,18 @@ class _RentingdetailsState extends State<Rentingdetails> {
                             SizedBox(
                               height: 5.h,
                             ),
-                            Text(
-                              'Return Date',
-                              style: TextStyle(
-                                color: const Color(0xFF627487),
-                                fontSize: 14.sp,
-                                fontFamily: 'SF Pro Display',
-                                fontWeight: FontWeight.w400,
-                              ),
+                            Row(
+                              children: [
+                                Text(
+                                  'Return Date',
+                                  style: TextStyle(
+                                    color: const Color(0xFF627487),
+                                    fontSize: 14.sp,
+                                    fontFamily: 'SF Pro Display',
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),
@@ -269,8 +284,9 @@ class _RentingdetailsState extends State<Rentingdetails> {
                   ],
                 ),
               ),
+              SizedBox(height: 44.h,),
               Padding(
-                padding: const EdgeInsets.all(15.0),
+                padding: const EdgeInsets.symmetric(horizontal: 22.0),
                 child: Row(
                   children: [
                     Icon(Icons.location_on_outlined,color: Colors.white,),
@@ -287,127 +303,117 @@ class _RentingdetailsState extends State<Rentingdetails> {
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Container(
-                  width: 352.w,
-                          height: 80.h,
-                          child: Column(
-                children: [
-                  Container(
-                      width: 352.w,
-                      height: 55.h,
-                      decoration: ShapeDecoration(
-                        shape: RoundedRectangleBorder(
-                          side: BorderSide(
-                            width: 1,
-                            color: const Color(0xFF627487),
-                          ),
-                          borderRadius: BorderRadius.circular(4),
+              SizedBox(height: 22.h,),
+              Container(
+                width: 352.w,
+                        height: 80.h,
+                        child: Column(
+              children: [
+                Container(
+                    width: 352.w,
+                    height: 55.h,
+                    decoration: ShapeDecoration(
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide(
+                          width: 1,
+                          color: const Color(0xFF627487),
                         ),
+                        borderRadius: BorderRadius.circular(4.r),
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Row(
-                          children: [
-                            Text(
-                        'Type your location or search in map',
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                      child: Row(
+                        children: [
+                          Text(
+                      'Type your location or search in map',
+                      style: TextStyle(
+                        color: const Color(0xFF627487),
+                        fontSize: 16.sp,
+                        fontFamily: 'SF Pro Display',
+                        fontWeight: FontWeight.w500,
+                      ),
+                                      ),
+                                      Spacer(),
+                                      Center(child: Icon(Icons.location_searching_outlined,color: const Color(0xFF627487),))
+                        ],
+                      ),
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        'Pickup location',
                         style: TextStyle(
                           color: const Color(0xFF627487),
-                          fontSize: 16.sp,
+                          fontSize: 14.sp,
                           fontFamily: 'SF Pro Display',
-                          fontWeight: FontWeight.w500,
-                        ),
-                                        ),
-                                        Spacer(),
-                                        Icon(Icons.location_searching_outlined,color: const Color(0xFF627487),)
-                          ],
+                          fontWeight: FontWeight.w400,
                         ),
                       ),
-                    ),
-                    Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Text(
-                            'Pickup location',
-                            style: TextStyle(
-                              color: const Color(0xFF627487),
-                              fontSize: 14.sp,
-                              fontFamily: 'SF Pro Display',
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
+                    ],
+                  ),
+              ],
                         ),
-                      ],
-                    ),
-                ],
-                          ),
-                ),
               ),
-              // SizedBox(
-              //   height: 10.h,
-              // ),
-              Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Container(
-                  width: 352.w,
-                          height: 80.h,
-                          child: Column(
-                children: [
-                  Container(
-                      width: 352.w,
-                      height: 55.h,
-                      decoration: ShapeDecoration(
-                        shape: RoundedRectangleBorder(
-                          side: BorderSide(
-                            width: 1,
-                            color: const Color(0xFF627487),
-                          ),
-                          borderRadius: BorderRadius.circular(4),
+              SizedBox(
+                height: 26.h,
+              ),
+              Container(
+                width: 352.w,
+                        height: 80.h,
+                        child: Column(
+              children: [
+                Container(
+                    width: 352.w,
+                    height: 55.h,
+                    decoration: ShapeDecoration(
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide(
+                          width: 1,
+                          color: const Color(0xFF627487),
                         ),
+                        borderRadius: BorderRadius.circular(4.r),
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Row(
-                          children: [
-                            Text(
-                        'Type your location or search in map',
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                      child: Row(
+                        children: [
+                          Text(
+                      'Type your location or search in map',
+                      style: TextStyle(
+                        color: const Color(0xFF627487),
+                        fontSize: 16.sp,
+                        fontFamily: 'SF Pro Display',
+                        fontWeight: FontWeight.w500,
+                      ),
+                                      ),
+                                      Spacer(),
+                                      Center(child: Icon(Icons.location_searching_outlined,color: const Color(0xFF627487),))
+                        ],
+                      ),
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        'Return location',
                         style: TextStyle(
                           color: const Color(0xFF627487),
-                          fontSize: 16.sp,
+                          fontSize: 14.sp,
                           fontFamily: 'SF Pro Display',
-                          fontWeight: FontWeight.w500,
-                        ),
-                                        ),
-                                        Spacer(),
-                                        Icon(Icons.location_searching_outlined,color: const Color(0xFF627487),)
-                          ],
+                          fontWeight: FontWeight.w400,
                         ),
                       ),
-                    ),
-                    Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Text(
-                            'Return location',
-                            style: TextStyle(
-                              color: const Color(0xFF627487),
-                              fontSize: 14.sp,
-                              fontFamily: 'SF Pro Display',
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
+                    ],
+                  ),
+              ],
                         ),
-                      ],
-                    ),
-                ],
-                          ),
-                ),
               ),
+              SizedBox(height: 43.h,),
               Padding(
-                padding: const EdgeInsets.all(15.0),
+                padding: const EdgeInsets.symmetric(horizontal: 22.0),
                 child: Row(
                   children: [
                     Icon(Icons.payment_sharp,color: Colors.white,),
@@ -424,76 +430,72 @@ class _RentingdetailsState extends State<Rentingdetails> {
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Container(
-                        width: 352.w,
-                        height: 55.h,
-                        decoration: ShapeDecoration(
-                          shape: RoundedRectangleBorder(
-                            side: BorderSide(
-                              width: 1,
-                              color: const Color(0xFF627487),
-                            ),
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(15.0),
-                          child: Row(
-                            children: [
-                              Icon(Icons.payments_outlined,color: const Color(0xFF627487),),
-                              SizedBox(width: 12.w,),
-                              Text(
-                          '**** **** ***5 6324',
-                          style: TextStyle(
+              SizedBox(height: 18.h,),
+              Container(
+                      width: 352.w,
+                      height: 55.h,
+                      decoration: ShapeDecoration(
+                        shape: RoundedRectangleBorder(
+                          side: BorderSide(
+                            width: 1,
                             color: const Color(0xFF627487),
-                            fontSize: 16.sp,
-                            fontFamily: 'SF Pro Display',
-                            fontWeight: FontWeight.w500,
                           ),
-                                          ),
-                                          
-                            ],
-                          ),
+                          borderRadius: BorderRadius.circular(4.r),
                         ),
                       ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Container(
-                        width: 352.w,
-                        height: 55.h,
-                        decoration: ShapeDecoration(
-                          shape: RoundedRectangleBorder(
-                            side: BorderSide(
-                              width: 1,
-                              color: const Color(0xFF627487),
-                            ),
-                            borderRadius: BorderRadius.circular(4),
-                          ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Row(
+                          children: [
+                            Icon(Icons.payments_outlined,color: const Color(0xFF627487),),
+                            SizedBox(width: 12.w,),
+                            Text(
+                        '**** **** ***5 6324',
+                        style: TextStyle(
+                          color: const Color(0xFF627487),
+                          fontSize: 16.sp,
+                          fontFamily: 'SF Pro Display',
+                          fontWeight: FontWeight.w500,
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(15.0),
-                          child: Row(
-                            children: [
-                              Icon(Icons.payments_outlined,color: const Color(0xFF627487),),
-                              SizedBox(width: 12.w,),
-                              Text(
-                          'Cash',
-                          style: TextStyle(
-                            color: const Color(0xFF627487),
-                            fontSize: 16.sp,
-                            fontFamily: 'SF Pro Display',
-                            fontWeight: FontWeight.w500,
-                          ),
-                                          ),
-                                          
-                            ],
-                          ),
+                                        ),
+                                        
+                          ],
                         ),
                       ),
-              ),
+                    ),
+                    SizedBox(height: 14.h,),
+              Container(
+                      width: 352.w,
+                      height: 55.h,
+                      decoration: ShapeDecoration(
+                        shape: RoundedRectangleBorder(
+                          side: BorderSide(
+                            width: 1,
+                            color: const Color(0xFF627487),
+                          ),
+                          borderRadius: BorderRadius.circular(4.r),
+                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Row(
+                          children: [
+                            Icon(Icons.payments_outlined,color: const Color(0xFF627487),),
+                            SizedBox(width: 12.w,),
+                            Text(
+                        'Cash',
+                        style: TextStyle(
+                          color: const Color(0xFF627487),
+                          fontSize: 16.sp,
+                          fontFamily: 'SF Pro Display',
+                          fontWeight: FontWeight.w500,
+                        ),
+                                        ),
+                                        
+                          ],
+                        ),
+                      ),
+                    ),
             ],
           ),
         ),

@@ -105,7 +105,7 @@ class _AccountState extends State<Account> {
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
                             width: 391.w,
-                            height: 100.h,
+                            height: 129.h,
                             decoration: ShapeDecoration(
                               gradient: LinearGradient(
                                 begin: Alignment(0.35, -0.29),
@@ -124,7 +124,7 @@ class _AccountState extends State<Account> {
                               children: [
                                 Container(
                             width: 134.w,
-                            height: 100.h,
+                            height: 121.h,
                             // color: Colors.white,
                             child: Image.asset('assets/budgetcar.jpg',height: 100.h,width: 134.w,fit: BoxFit.fill,),
                             // decoration: ShapeDecoration(
@@ -142,6 +142,7 @@ class _AccountState extends State<Account> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
+                                  SizedBox(height: 20.h,),
                                   Text(
                                 'Ford B-Max',
                                 textAlign: TextAlign.center,

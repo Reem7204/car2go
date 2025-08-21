@@ -21,30 +21,27 @@ class _ButtondesignState extends State<Buttondesign> {
         textColor = Colors.black;
         break;
     }
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-                    width: 350.w,
-                    height: 50.h,
-                    decoration: ShapeDecoration(
-                      color: backgroundColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.r),
-                      ),
-                    ),
-                    child: Center(
-                      child: Text(
-                      widget.text,
-                      style: TextStyle(
-                        color: textColor,
-                        fontSize: 20.sp,
-                        fontFamily: 'SF Pro Display',
-                        fontWeight: FontWeight.w500,
-                        letterSpacing: 0.20,
-                      ),
-                                      ),
+    return Container(
+                  width: 350.w,
+                  height: 73.h,
+                  decoration: ShapeDecoration(
+                    color: backgroundColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.r),
                     ),
                   ),
-    );
+                  child: Center(
+                    child: Text(
+                    widget.text,
+                    style: TextStyle(
+                      color: textColor,
+                      fontSize: 20.sp,
+                      fontFamily: 'SF Pro Display',
+                      fontWeight: FontWeight.w500,
+                      letterSpacing: 0.20,
+                    ),
+                                    ),
+                  ),
+                );
   }
 }

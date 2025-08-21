@@ -29,35 +29,32 @@ class _CustomTextfieldState extends State<CustomTextfield> {
         keyboardType = TextInputType.text;
         break;  
     }
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-                    width: 350.w,
-                    height: 50.h,
-                    decoration: ShapeDecoration(
-                      color: Colors.white.withValues(alpha: 0.18),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.r),
-                      ),
-                    ),
-                    child: TextField(
-                      controller: widget.controller,
-                      cursorColor: Colors.white,
-                      keyboardType: keyboardType,
-                      
-                      style: TextStyle(color: Colors.white,fontSize: 16.sp,
-                        fontFamily: 'SF Pro Display',
-                        fontWeight: FontWeight.w400,),
-                      decoration: InputDecoration(
-                            contentPadding: EdgeInsets.symmetric(
-                                vertical: 10.0, horizontal: 20.0),
-                            labelText: widget.label,
-                            labelStyle: TextStyle(color: const Color(0xFFA7B0BB),fontSize: 16.sp,
-                        fontFamily: 'SF Pro Display',
-                        fontWeight: FontWeight.w400,),
-                            border: InputBorder.none),
+    return Container(
+                  width: 350.w,
+                  height: 73.h,
+                  decoration: ShapeDecoration(
+                    color: Colors.white.withValues(alpha: 0.18),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.r),
                     ),
                   ),
-    );
+                  child: TextField(
+                    controller: widget.controller,
+                    cursorColor: Colors.white,
+                    keyboardType: keyboardType,
+                    
+                    style: TextStyle(color: Colors.white,fontSize: 16.sp,
+                      fontFamily: 'SF Pro Display',
+                      fontWeight: FontWeight.w400,),
+                    decoration: InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(
+                              vertical:20.0, horizontal: 20.0),
+                          labelText: widget.label,
+                          labelStyle: TextStyle(color: const Color(0xFFA7B0BB),fontSize: 16.sp,
+                      fontFamily: 'SF Pro Display',
+                      fontWeight: FontWeight.w400,),
+                          border: InputBorder.none),
+                  ),
+                );
   }
 }

@@ -21,7 +21,7 @@ class ApiClient {
       case "POST":
         response = await post(Uri.parse(url),
             headers: {
-              'content-Type': 'application/x-www-form-urlencoded',
+              'content-Type': 'application/json',
             },
             body: body);
 
@@ -54,8 +54,8 @@ class ApiClient {
         response = await get(
           Uri.parse(url),
           headers: {
-            'x-rapidapi-host':'booking-com-api5.p.rapidapi.com',
-            'x-rapidapi-key':'cde9767366msh628d21d214224d3p1e6bdfjsne93f8f9ce883',
+            // 'x-rapidapi-host':'booking-com-api5.p.rapidapi.com',
+            // 'x-rapidapi-key':'cde9767366msh628d21d214224d3p1e6bdfjsne93f8f9ce883',
             'Accept': 'application/json',
             'Content-Type': 'application/json'
           },

@@ -29,7 +29,7 @@ class _SearchState extends State<Search> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(leading: null, backgroundColor: Colors.black),
+      appBar: null,
       body: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
@@ -37,8 +37,10 @@ class _SearchState extends State<Search> {
               padding: const EdgeInsets.all(12.0),
               child: Column(
                 children: [
+                  SizedBox(height: 94.h,),
                   Row(
                     children: [
+                      
                       Text(
                         'location',
                         textAlign: TextAlign.center,
@@ -96,10 +98,7 @@ class _SearchState extends State<Search> {
 
                             decoration: InputDecoration(
                               border: InputBorder.none,
-                              icon: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Icon(Icons.search, color: Colors.white),
-                              ),
+                              icon: Icon(Icons.search, color: Colors.white),
 
                               hintText: 'What are you looking for',
                             ),
@@ -122,24 +121,24 @@ class _SearchState extends State<Search> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 10.h),
+                  SizedBox(height: 15.h),
                   Container(
                     width: double.infinity,
                     height: 78.h,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: 7,
+                      itemCount: carBrand.length,
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: const EdgeInsets.all(5.0),
                           child: Container(
-                            width: 75.w,
-                            height: 60.h,
+                            width: 78.w,
+                            height: 78.h,
                             decoration: ShapeDecoration(
                               color: const Color(0xFFF3F3F3),
                               shape: OvalBorder(),
                             ),
-                            child: Image.asset(carBrand[index]['image']),
+                            child: Center(child: Image.asset(carBrand[index]['image'], width: 44.w,height: 36.h,fit: BoxFit.contain,)),
                           ),
                         );
                       },
@@ -172,7 +171,7 @@ class _SearchState extends State<Search> {
                 index,
               ) {
                 return Container(
-                  width: 185.w,
+                  width: 186.w,
                   height: 128.h,
                   decoration: ShapeDecoration(
                     color: Colors.white,
@@ -181,6 +180,7 @@ class _SearchState extends State<Search> {
                     //   end: Alignment(0.55, 1.70),
                     //   colors: [Colors.white, Colors.white.withValues(alpha: 0)],
                     // ),
+                    image: DecorationImage(image: AssetImage(carLifeStyle[index]['image']),fit: BoxFit.fill),
                     shape: RoundedRectangleBorder(
                       side: BorderSide(
                         width: 1,
@@ -191,13 +191,14 @@ class _SearchState extends State<Search> {
                   ),
                   child: Stack(
                     children: [
-                      Image.asset(
-                        carLifeStyle[index]['image'],
-                        height: 128.h,
-                        fit: BoxFit.fill,
-                      ),
+                      // Image.asset(
+                      //   carLifeStyle[index]['image'],
+                      //   height: 148.h,
+                      //   // width: 186.w,
+                      //   fit: BoxFit.fill,
+                      // ),
                       Positioned(
-                        bottom: 30,
+                        top: 60,
                         left: 5,
                         child: SafeArea(
                           child: Text(
@@ -206,13 +207,13 @@ class _SearchState extends State<Search> {
                               fontSize: 15.sp,
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
-                              backgroundColor: Colors.black54,
+                              backgroundColor: Colors.black12,
                             ),
                           ),
                         ),
                       ),
                       Positioned(
-                        bottom: 10,
+                        top: 80,
                         left: 5,
                         child: SafeArea(
                           child: Text(
@@ -220,7 +221,7 @@ class _SearchState extends State<Search> {
                             style: TextStyle(
                               fontSize: 12.sp,
                               color: Colors.white,
-                              backgroundColor: Colors.black54,
+                              backgroundColor: Colors.black12,
                             ),
                           ),
                         ),
@@ -237,6 +238,9 @@ class _SearchState extends State<Search> {
               ),
             ),
           ),
+          SliverToBoxAdapter(
+      child: SizedBox(height: 100.h),
+    ),
         ],
       ),
     );
