@@ -15,7 +15,8 @@ class Productdetails extends StatefulWidget {
     required this.transmission,
     required this.vname,
     required this.img,
-    required this.color
+    required this.color,
+    required this.id
   });
   final double rating;
   final String seats;
@@ -25,6 +26,7 @@ class Productdetails extends StatefulWidget {
   final String vname;
   final List<String> img;
   final String color;
+  final String id;
 
   @override
   State<Productdetails> createState() => _ProductdetailsState();
@@ -413,6 +415,7 @@ class _ProductdetailsState extends State<Productdetails> {
                               Vehicleimg: widget.img[0], 
                               VehicleColors: widget.color, 
                               vprice: widget.price.toString(),
+                              vid: widget.id.toString()
                             ),
                       ),
                     );

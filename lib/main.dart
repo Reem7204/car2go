@@ -1,6 +1,7 @@
 import 'package:car2go/bloc/bloc/car_bloc.dart';
 import 'package:car2go/bloc/bloc/login_bloc.dart';
 import 'package:car2go/bloc/bloc/rent_cars_bloc.dart';
+import 'package:car2go/bloc/bloc/rent_order_bloc.dart';
 import 'package:car2go/bloc/bloc/signup_bloc.dart';
 import 'package:car2go/screens/accountDetails.dart';
 import 'package:car2go/screens/addCar.dart';
@@ -21,6 +22,7 @@ void main() {
         BlocProvider(create: (context) => RentCarsBloc()),
         BlocProvider(create: (context) => LoginBloc()), 
         BlocProvider(create: (context) => SignupBloc()), 
+        BlocProvider(create: (context) => RentOrderBloc()), 
       ],
       child: const MyApp(),
     ),

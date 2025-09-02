@@ -251,6 +251,7 @@ class _HomeState extends State<Home> {
                                   vname: carModel[index].brand.toString(),
                                   img: carModel[index].photos!.toList(), 
                                   color: carModel[index].vehicleColor.toString(),
+                                  id : carModel[index].id.toString()
                                 ),
                           ),
                           // MaterialPageRoute(builder: (context) => Productdetails(rating: car.ratingInfo!.average!.toDouble(), seats: car.vehicleInfo!.seats.toString(), doors: car.vehicleInfo!.doors.toString(), price: car.pricingInfo!.basePrice!.toDouble(), transmission: car.vehicleInfo!.transmission.toString(), vname: car.vehicleInfo!.vName.toString(), img: car.vehicleInfo!.imageUrl ?? 'https://via.placeholder.com/150',)),
@@ -441,7 +442,8 @@ class _HomeState extends State<Home> {
                                   transmission: carModel[index].gearType.toString(),
                                   vname: carModel[index].brand.toString(),
                                   img: carModel[index].photos!.toList(),
-                                  color: carModel[index].vehicleColor.toString(),
+                                  color: carModel[index].vehicleColor.toString(), 
+                                  id: carModel[index].id.toString(),
                                 ),
                           ),
                           // MaterialPageRoute(builder: (context) => Productdetails(rating: car.ratingInfo!.average!.toDouble(), seats: car.vehicleInfo!.seats.toString(), doors: car.vehicleInfo!.doors.toString(), price: car.pricingInfo!.basePrice!.toDouble(), transmission: car.vehicleInfo!.transmission.toString(), vname: car.vehicleInfo!.vName.toString(), img: car.vehicleInfo!.imageUrl ?? 'https://via.placeholder.com/150',)),

@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:car2go/model/loginModel.dart';
 import 'package:car2go/repositories/car_repository.dart';
-import 'package:flutter/src/widgets/editable_text.dart';
 import 'package:meta/meta.dart';
 
 part 'login_event.dart';

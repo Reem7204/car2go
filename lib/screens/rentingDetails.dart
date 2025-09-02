@@ -1,12 +1,28 @@
+import 'dart:ui';
+
+import 'package:car2go/bloc/bloc/rent_cars_bloc.dart';
+import 'package:car2go/bloc/bloc/rent_order_bloc.dart';
+import 'package:car2go/model/rentOrder.dart';
+import 'package:car2go/screens/bottomnav.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class Rentingdetails extends StatefulWidget {
-  const Rentingdetails({super.key, required this.Vehiclename, required this.Vehicleimg, required this.VehicleColors, required this.vprice});
+  const Rentingdetails({
+    super.key,
+    required this.Vehiclename,
+    required this.Vehicleimg,
+    required this.VehicleColors,
+    required this.vprice,
+    required this.vid,
+  });
   final String Vehiclename;
   final String Vehicleimg;
   final String VehicleColors;
   final String vprice;
+  final String vid;
 
   @override
   State<Rentingdetails> createState() => _RentingdetailsState();
@@ -15,6 +31,15 @@ class Rentingdetails extends StatefulWidget {
 class _RentingdetailsState extends State<Rentingdetails> {
   DateTime? selectedDate;
   DateTime? selectedReturnDate;
+  late RentOrder rentOrder;
+  TextEditingController pickUpLocation = TextEditingController();
+  TextEditingController returnLocation = TextEditingController();
+
+  final storage = FlutterSecureStorage();
+
+  Future<String?> getLoginId() async {
+    return await storage.read(key: 'login_id');
+  }
 
   Future<void> _pickDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -42,6 +67,19 @@ class _RentingdetailsState extends State<Rentingdetails> {
         selectedReturnDate = picked;
       });
     }
+  }
+
+  int getRentalDays() {
+    if (selectedDate != null && selectedReturnDate != null) {
+      return selectedReturnDate!.difference(selectedDate!).inDays;
+    }
+    return 0;
+  }
+
+  double getTotalPrice() {
+    int days = getRentalDays();
+    double pricePerDay = double.tryParse(widget.vprice) ?? 0;
+    return days > 0 ? days * pricePerDay : 0;
   }
 
   @override
@@ -85,7 +123,7 @@ class _RentingdetailsState extends State<Rentingdetails> {
                 ),
                 child: Row(
                   children: [
-                    SizedBox(width: 10.w,),
+                    SizedBox(width: 10.w),
                     Container(
                       width: 127.w,
                       height: 102.h,
@@ -100,11 +138,11 @@ class _RentingdetailsState extends State<Rentingdetails> {
                         ),
                       ),
                     ),
-                    SizedBox(width: 27.w,),
+                    SizedBox(width: 27.w),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 16.h,),
+                        SizedBox(height: 16.h),
                         Text(
                           widget.Vehiclename,
                           textAlign: TextAlign.center,
@@ -145,7 +183,7 @@ class _RentingdetailsState extends State<Rentingdetails> {
                 padding: const EdgeInsets.symmetric(horizontal: 22.0),
                 child: Row(
                   children: [
-                    Icon(Icons.calendar_today_outlined, color: Colors.white,),
+                    Icon(Icons.calendar_today_outlined, color: Colors.white),
                     SizedBox(width: 10.w),
                     Text(
                       'Select Date',
@@ -159,7 +197,7 @@ class _RentingdetailsState extends State<Rentingdetails> {
                   ],
                 ),
               ),
-              SizedBox(height: 23.h,),
+              SizedBox(height: 23.h),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 22.0),
                 child: Row(
@@ -200,9 +238,7 @@ class _RentingdetailsState extends State<Rentingdetails> {
                                 ),
                               ),
                             ),
-                            SizedBox(
-                              height: 5.h,
-                            ),
+                            SizedBox(height: 5.h),
                             Row(
                               children: [
                                 Text(
@@ -220,12 +256,12 @@ class _RentingdetailsState extends State<Rentingdetails> {
                         ),
                       ),
                     ),
-                    SizedBox(width: 12.w,),
+                    SizedBox(width: 12.w),
                     Icon(
                       Icons.arrow_right_alt_sharp,
                       color: const Color(0xFF627487),
                     ),
-                    SizedBox(width: 12.w,),
+                    SizedBox(width: 12.w),
                     GestureDetector(
                       onTap: () {
                         _pickReturnDate(context);
@@ -261,9 +297,7 @@ class _RentingdetailsState extends State<Rentingdetails> {
                                 ),
                               ),
                             ),
-                            SizedBox(
-                              height: 5.h,
-                            ),
+                            SizedBox(height: 5.h),
                             Row(
                               children: [
                                 Text(
@@ -284,12 +318,12 @@ class _RentingdetailsState extends State<Rentingdetails> {
                   ],
                 ),
               ),
-              SizedBox(height: 44.h,),
+              SizedBox(height: 44.h),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 22.0),
                 child: Row(
                   children: [
-                    Icon(Icons.location_on_outlined,color: Colors.white,),
+                    Icon(Icons.location_on_outlined, color: Colors.white),
                     SizedBox(width: 10.w),
                     Text(
                       'Select Location',
@@ -303,120 +337,106 @@ class _RentingdetailsState extends State<Rentingdetails> {
                   ],
                 ),
               ),
-              SizedBox(height: 22.h,),
-              Container(
-                width: 352.w,
-                        height: 80.h,
-                        child: Column(
-              children: [
-                Container(
-                    width: 352.w,
-                    height: 55.h,
-                    decoration: ShapeDecoration(
-                      shape: RoundedRectangleBorder(
-                        side: BorderSide(
-                          width: 1,
-                          color: const Color(0xFF627487),
-                        ),
-                        borderRadius: BorderRadius.circular(4.r),
-                      ),
+              SizedBox(height: 22.h),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 27.0),
+                child: TextField(
+                  controller: pickUpLocation,
+                  decoration: InputDecoration(
+                    hintText: " Type your location or search in map",
+                    hintStyle: TextStyle(
+                      color: const Color(0xFF627487),
+                      fontSize: 16.sp,
+                      fontFamily: 'SF Pro Display',
+                      fontWeight: FontWeight.w500,
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                      child: Row(
-                        children: [
-                          Text(
-                      'Type your location or search in map',
+                    suffixIcon: Icon(
+                      Icons.location_searching_outlined,
+                      color: const Color(0xFF627487),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: const Color(0xFF627487)),
+                      borderRadius: BorderRadius.circular(4.r),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                      borderRadius: BorderRadius.circular(4.r),
+                    ),
+                  ),
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 27.0),
+                child: Row(
+                  children: [
+                    Text(
+                      'Pickup location',
                       style: TextStyle(
                         color: const Color(0xFF627487),
-                        fontSize: 16.sp,
+                        fontSize: 14.sp,
                         fontFamily: 'SF Pro Display',
-                        fontWeight: FontWeight.w500,
-                      ),
-                                      ),
-                                      Spacer(),
-                                      Center(child: Icon(Icons.location_searching_outlined,color: const Color(0xFF627487),))
-                        ],
+                        fontWeight: FontWeight.w400,
                       ),
                     ),
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        'Pickup location',
-                        style: TextStyle(
-                          color: const Color(0xFF627487),
-                          fontSize: 14.sp,
-                          fontFamily: 'SF Pro Display',
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ],
-                  ),
-              ],
-                        ),
+                  ],
+                ),
               ),
-              SizedBox(
-                height: 26.h,
-              ),
-              Container(
-                width: 352.w,
-                        height: 80.h,
-                        child: Column(
-              children: [
-                Container(
-                    width: 352.w,
-                    height: 55.h,
-                    decoration: ShapeDecoration(
-                      shape: RoundedRectangleBorder(
-                        side: BorderSide(
-                          width: 1,
-                          color: const Color(0xFF627487),
-                        ),
-                        borderRadius: BorderRadius.circular(4.r),
-                      ),
+
+              SizedBox(height: 26.h),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 27.0),
+                child: TextField(
+                  controller: returnLocation,
+                  decoration: InputDecoration(
+                    hintText: " Type your location or search in map",
+                    hintStyle: TextStyle(
+                      color: const Color(0xFF627487),
+                      fontSize: 16.sp,
+                      fontFamily: 'SF Pro Display',
+                      fontWeight: FontWeight.w500,
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                      child: Row(
-                        children: [
-                          Text(
-                      'Type your location or search in map',
+                    suffixIcon: Icon(
+                      Icons.location_searching_outlined,
+                      color: const Color(0xFF627487),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: const Color(0xFF627487)),
+                      borderRadius: BorderRadius.circular(4.r),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                      borderRadius: BorderRadius.circular(4.r),
+                    ),
+                  ),
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 27.0),
+                child: Row(
+                  children: [
+                    Text(
+                      'Return location',
                       style: TextStyle(
                         color: const Color(0xFF627487),
-                        fontSize: 16.sp,
+                        fontSize: 14.sp,
                         fontFamily: 'SF Pro Display',
-                        fontWeight: FontWeight.w500,
-                      ),
-                                      ),
-                                      Spacer(),
-                                      Center(child: Icon(Icons.location_searching_outlined,color: const Color(0xFF627487),))
-                        ],
+                        fontWeight: FontWeight.w400,
                       ),
                     ),
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        'Return location',
-                        style: TextStyle(
-                          color: const Color(0xFF627487),
-                          fontSize: 14.sp,
-                          fontFamily: 'SF Pro Display',
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ],
-                  ),
-              ],
-                        ),
+                  ],
+                ),
               ),
-              SizedBox(height: 43.h,),
+
+              SizedBox(height: 43.h),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 22.0),
                 child: Row(
                   children: [
-                    Icon(Icons.payment_sharp,color: Colors.white,),
+                    Icon(Icons.payment_sharp, color: Colors.white),
                     SizedBox(width: 10.w),
                     Text(
                       'Payment Method',
@@ -430,73 +450,220 @@ class _RentingdetailsState extends State<Rentingdetails> {
                   ],
                 ),
               ),
-              SizedBox(height: 18.h,),
-              Container(
-                      width: 352.w,
-                      height: 55.h,
-                      decoration: ShapeDecoration(
-                        shape: RoundedRectangleBorder(
-                          side: BorderSide(
-                            width: 1,
-                            color: const Color(0xFF627487),
-                          ),
-                          borderRadius: BorderRadius.circular(4.r),
-                        ),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Row(
-                          children: [
-                            Icon(Icons.payments_outlined,color: const Color(0xFF627487),),
-                            SizedBox(width: 12.w,),
-                            Text(
-                        '**** **** ***5 6324',
-                        style: TextStyle(
-                          color: const Color(0xFF627487),
-                          fontSize: 16.sp,
-                          fontFamily: 'SF Pro Display',
-                          fontWeight: FontWeight.w500,
-                        ),
-                                        ),
-                                        
-                          ],
-                        ),
-                      ),
+              SizedBox(height: 18.h),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 27.0),
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: '**** **** ***5 6324',
+                    hintStyle: TextStyle(
+                      color: const Color(0xFF627487),
+                      fontSize: 16.sp,
+                      fontFamily: 'SF Pro Display',
+                      fontWeight: FontWeight.w500,
                     ),
-                    SizedBox(height: 14.h,),
-              Container(
-                      width: 352.w,
-                      height: 55.h,
-                      decoration: ShapeDecoration(
-                        shape: RoundedRectangleBorder(
-                          side: BorderSide(
-                            width: 1,
-                            color: const Color(0xFF627487),
-                          ),
-                          borderRadius: BorderRadius.circular(4.r),
-                        ),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Row(
-                          children: [
-                            Icon(Icons.payments_outlined,color: const Color(0xFF627487),),
-                            SizedBox(width: 12.w,),
-                            Text(
-                        'Cash',
-                        style: TextStyle(
-                          color: const Color(0xFF627487),
-                          fontSize: 16.sp,
-                          fontFamily: 'SF Pro Display',
-                          fontWeight: FontWeight.w500,
-                        ),
-                                        ),
-                                        
-                          ],
-                        ),
-                      ),
+                    prefixIcon: Icon(
+                      Icons.payments_outlined,
+                      color: const Color(0xFF627487),
                     ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: const Color(0xFF627487)),
+                      borderRadius: BorderRadius.circular(4.r),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                      borderRadius: BorderRadius.circular(4.r),
+                    ),
+                  ),
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+
+              SizedBox(height: 14.h),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 27.0),
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: 'Cash',
+                    hintStyle: TextStyle(
+                      color: const Color(0xFF627487),
+                      fontSize: 16.sp,
+                      fontFamily: 'SF Pro Display',
+                      fontWeight: FontWeight.w500,
+                    ),
+                    prefixIcon: Icon(
+                      Icons.payments_outlined,
+                      color: const Color(0xFF627487),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: const Color(0xFF627487)),
+                      borderRadius: BorderRadius.circular(4.r),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                      borderRadius: BorderRadius.circular(4.r),
+                    ),
+                  ),
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+
+              SizedBox(height: 14.h),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 27.0),
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: 'Add payment method',
+                    hintStyle: TextStyle(
+                      color: const Color(0xFF627487),
+                      fontSize: 16.sp,
+                      fontFamily: 'SF Pro Display',
+                      fontWeight: FontWeight.w500,
+                    ),
+                    prefixIcon: Icon(
+                      Icons.add_box_outlined,
+                      color: const Color(0xFF627487),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: const Color(0xFF627487)),
+                      borderRadius: BorderRadius.circular(4.r),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                      borderRadius: BorderRadius.circular(4.r),
+                    ),
+                  ),
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
             ],
+          ),
+        ),
+      ),
+      bottomNavigationBar: ClipRRect(
+        borderRadius: BorderRadius.circular(16.r),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+          child: Container(
+            width: 430.w,
+            height: 156.h,
+            decoration: ShapeDecoration(
+              color: const Color(0x82C2C2C2),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(16.r),
+                  topRight: Radius.circular(16.r),
+                ),
+              ),
+            ),
+            child: Row(
+              children: [
+                SizedBox(width: 25.w),
+
+                Column(
+                  children: [
+                    SizedBox(height: 52.h),
+                    Text(
+                      'RENTAL PRICE FOR ',
+                      style: TextStyle(
+                        color: const Color(0xFF1F354D),
+                        fontSize: 15,
+                        fontFamily: 'SF Pro Display',
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    Text(
+                      getRentalDays() > 0
+                          ? "${getRentalDays()} Days - ${getTotalPrice()}\$"
+                          : "Select dates",
+                      style: TextStyle(
+                        color: const Color(0xFFF7F5F2),
+                        fontSize: 20,
+                        fontFamily: 'SF Pro Display',
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(width: 33.w),
+                BlocListener<RentOrderBloc, RentOrderState>(
+                  listener: (context, state) {
+                    if (state is RentOrderBlocLoading) {
+                      showDialog(
+                        context: context,
+                        barrierDismissible: false, // user cannot close manually
+                        builder: (BuildContext context) {
+                          return Center(child: CircularProgressIndicator());
+                        },
+                      );
+                    }
+                    if (state is RentOrderBlocError) {
+                      Navigator.pop(context);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Something went wrong'),
+                        backgroundColor: Colors.red,)
+                    );
+                    }
+                    if (state is RentOrderBlocLoaded) {
+                      rentOrder =
+                          BlocProvider.of<RentOrderBloc>(context).rentOrder;
+                      Navigator.pop(context);
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => Bottomnav()),
+                      );
+                    }
+                  },
+                  child: GestureDetector(
+                    onTap: () async {
+                      String? loginId = await getLoginId();
+
+                      BlocProvider.of<RentOrderBloc>(context).add(
+                        FetchRentOrderEvent(
+                          vehicle: widget.vid,
+                          user: loginId.toString(),
+                          pickupDate: selectedDate.toString(),
+                          returnDate: selectedReturnDate.toString(),
+                          pickupLocation: pickUpLocation.text,
+                          returnLocation: returnLocation.text,
+                          amount: getTotalPrice().toInt(),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      width: 161.w,
+                      height: 50.h,
+                      decoration: ShapeDecoration(
+                        gradient: RadialGradient(
+                          center: Alignment(0.42, -0.70),
+                          radius: 2.03,
+                          colors: [
+                            const Color(0xFFD39906),
+                            const Color(0xFFFFCE50),
+                            const Color(0xFFD39906),
+                          ],
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.r),
+                        ),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Pay Now',
+                          style: TextStyle(
+                            color: const Color(0xFFF7F5F2),
+                            fontSize: 20.sp,
+                            fontFamily: 'SF Pro Display',
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

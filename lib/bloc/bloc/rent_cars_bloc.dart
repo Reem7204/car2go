@@ -22,4 +22,5 @@ class RentCarsBloc extends Bloc<RentCarsEvent, RentCarsState> {
       }
     });
   }
+
 }

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:car2go/model/carModel.dart';
 import 'package:car2go/model/loginModel.dart';
+import 'package:car2go/model/rentOrder.dart';
 import 'package:car2go/model/signUpModel.dart';
 import 'package:http/http.dart';
 import 'api_client.dart';
@@ -17,8 +18,6 @@ class CarRepository {
   Future<List<MapModel>> getBuyCarDetails() async {
     String url = 'http://45.159.221.50:8868/api/get-buyvehicles';
     Response response = await apiClient.invokeAPI(url, 'GET', body);
-    print("BuyCar API Status: ${response.statusCode}");
-  print("BuyCar API Response: ${response.body}");
     return MapModel.listFromJson(jsonDecode(response.body));
   }
 
@@ -64,5 +63,29 @@ class CarRepository {
       // throw error message so Bloc can catch it
       throw Exception(data['message'] ?? 'Something went wrong');
     }
+  }
+
+  Future<RentOrder> postCreateRentOrder(
+    String vehicle,
+    String user,
+    String pickupDate,
+    String returnDate,
+    String pickupLocation,
+    String returnLocation,
+    int amount
+  ) async {
+    String url = 'http://45.159.221.50:8868/api/create-rent-order';
+    var body = {
+      "vehicle": vehicle,
+      "user": user,
+      "pickupDate": pickupDate,
+      "returnDate": returnDate,
+      "pickupLocation": pickupLocation,
+      "returnLocation": returnLocation,
+      "amount": amount,
+    };
+    Response response = await apiClient.invokeAPI(url, 'POST', jsonEncode(body));
+    print(response.body);
+    return RentOrder.fromJson(jsonDecode(response.body));
   }
 }

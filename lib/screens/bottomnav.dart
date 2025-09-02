@@ -2,15 +2,12 @@ import 'dart:ui';
 
 import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:car2go/screens/account.dart';
-import 'package:car2go/screens/addCar.dart';
 import 'package:car2go/screens/buyCar.dart';
 import 'package:car2go/screens/home.dart';
-import 'package:car2go/screens/message.dart';
 import 'package:car2go/screens/search.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:material_symbols_icons/material_symbols_icons.dart';
 
 
 class Bottomnav extends StatefulWidget {

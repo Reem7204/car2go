@@ -9,6 +9,7 @@ import 'package:car2go/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -21,6 +22,11 @@ class _LoginState extends State<Login> {
   late LoginModel loginModel;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  final storage = FlutterSecureStorage();
+
+Future<void> saveLoginId(String userId) async {
+  await storage.write(key: 'login_id', value: userId);
+}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,6 +104,7 @@ class _LoginState extends State<Login> {
                   }
                   if (state is LoginStateLoaded) {
                     loginModel = BlocProvider.of<LoginBloc>(context).loginModel;
+                    saveLoginId(loginModel.id.toString());
                     Navigator.pop(context);
                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Bottomnav()));
                   }
